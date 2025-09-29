@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1><i class="fas fa-wifi"></i> ONUs Detectadas</h1>
+        <p class="text-muted">Lista completa de ONUs en todas las OLTs</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Filtrar por OLT</h5>
+                <select id="olt-filter" class="form-select">
+                    <option value="">Todas las OLTs</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> Lista de ONUs</h5>
+            </div>
+            <div class="card-body">
+                <div id="onus-table" class="table-responsive">
+                    <!-- Tabla dinámica de ONUs -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let allOnus = [];
+let olts = [];
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadData();
+
+    // Filtro por OLT
+    document.getElementById('olt-filter').addEventListener('change', filterOnus);
+
+    // Actualización en tiempo real
+    const socket = io();
+    socket.on('real_time_update', () => {
+        loadData();
+    });
+});
+
+async function loadData() {
+    try {
+        // Cargar OLTs para el filtro
+        const oltsResponse = await fetch('/api/olts');
+        const oltsData = await oltsResponse.json();
+        olts = oltsData.olts;
+        populateOltFilter(olts);
+
+        // Cargar todas las ONUs
+        allOnus = [];
+        for (const olt of olts) {
+            const onusResponse = await fetch(`/api/onus/${olt.ip}`);
+            const onusData = await onusResponse.json();
+            allOnus = allOnus.concat(onusData.onus.map(onu => ({...onu, olt_ip: olt.ip, olt_nombre: olt.nombre})));
+        }
+
+        renderOnusTable(allOnus);
+    } catch (error) {
+        console.error('Error cargando datos:', error);
+        document.getElementById('onus-table').innerHTML = '<p class="text-danger">Error cargando datos</p>';
+    }
+}
+
+function populateOltFilter(olts) {
+    const filter = document.getElementById('olt-filter');
+    filter.innerHTML = '<option value="">Todas las OLTs</option>';
+    olts.forEach(olt => {
+        filter.innerHTML += `<option value="${olt.ip}">${olt.nombre} (${olt.ip})</option>`;
+    });
+}
+
+function filterOnus() {
+    const selectedOlt = document.getElementById('olt-filter').value;
+    const filteredOnus = selectedOlt ? allOnus.filter(onu => onu.olt_ip === selectedOlt) : allOnus;
+    renderOnusTable(filteredOnus);
+}
+
+function renderOnusTable(onus) {
+    if (onus.length === 0) {
+        document.getElementById('onus-table').innerHTML = '<p class="text-muted">No hay ONUs detectadas</p>';
+        return;
+    }
+
+    let html = `
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Serial</th>
+                    <th>OLT</th>
+                    <th>Interfaz</th>
+                    <th>Slot/Puerto</th>
+                    <th>Rx Power</th>
+                    <th>Tx Power</th>
+                    <th>Estado</th>
+                    <th>Última Actualización</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    onus.forEach(onu => {
+        const rxClass = onu.rx_power < -27 ? 'text-danger' : onu.rx_power < -20 ? 'text-warning' : 'text-success';
+        const txClass = onu.tx_power < -27 ? 'text-danger' : onu.tx_power < -20 ? 'text-warning' : 'text-success';
+        const estadoClass = onu.estado.toLowerCase().includes('online') ? 'bg-success' : 'bg-warning';
+
+        html += `
+            <tr>
+                <td><code>${onu.serial}</code></td>
+                <td>${onu.olt_nombre} (${onu.olt_ip})</td>
+                <td>${onu.interfaz}</td>
+                <td>${onu.slot}/${onu.puerto}</td>
+                <td class="${rxClass}">${onu.rx_power}dBm</td>
+                <td class="${txClass}">${onu.tx_power}dBm</td>
+                <td><span class="badge ${estadoClass}">${onu.estado}</span></td>
+                <td>${new Date(onu.ultima_actualizacion).toLocaleString()}</td>
+            </tr>
+        `;
+    });
+
+    html += '</tbody></table>';
+    document.getElementById('onus-table').innerHTML = html;
+}
+</script>
+{% endblock %}

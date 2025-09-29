@@ -1,0 +1,16 @@
+# Estructura de carpetas
+mkdir -p monitor_vsol_web/{templates,static/{css,js,images}}
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+# Configurar variables de entorno
+export DB_PASSWORD="tu_password"
+export DB_HOST="172.20.5.2"
+export DB_NAME="n8n_automations"
+export DB_USER="n8n_automations"
+
+# Ejecutar
+python app.py
+
+Luego accedes desde: http://tuserver:5000

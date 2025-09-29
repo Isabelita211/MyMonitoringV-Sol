@@ -1,0 +1,41 @@
+/* static/css/charts.css */
+.chart-wrapper {
+    position: relative;
+    height: 300px;
+    margin: 20px 0;
+}
+
+.chart-title {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+/* Responsive para charts */
+@media (max-width: 768px) {
+    .chart-wrapper {
+        height: 250px;
+    }
+}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+        <p class="text-muted">Monitor en tiempo real de OLTs VSOL</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title">OLTs Detectadas</h5>
+                <h2 id="total-olts" class="card-text">0</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Total ONUs</h5>
+                <h2 id="total-onus" class="card-text">0</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5 class="card-title">OLTs Online</h5>
+                <h2 id="olts-online" class="card-text">0</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5 class="card-title">Última Actualización</h5>
+                <h6 id="last-update" class="card-text">--:--:--</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-satellite"></i> Control de Escaneo</h5>
+            </div>
+            <div class="card-body">
+                <button id="scan-btn" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Iniciar Escaneo
+                </button>
+                <div id="scan-status" class="mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> OLTs Recientes</h5>
+            </div>
+            <div class="card-body">
+                <div id="olts-list" class="table-responsive">
+                    <!-- Lista dinámica de OLTs -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
