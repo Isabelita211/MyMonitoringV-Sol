@@ -1,0 +1,21 @@
+2025-09-29 15:24:57,409 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.100.0.100:5000
+2025-09-29 15:24:57,409 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-29 15:24:57,409 - INFO -  * Restarting with stat
+2025-09-29 15:24:58,139 - WARNING -  * Debugger is active!
+2025-09-29 15:24:58,142 - INFO -  * Debugger PIN: 119-427-218
+2025-09-29 15:25:18,723 - INFO - 127.0.0.1 - - [29/Sep/2025 15:25:18] "GET / HTTP/1.1" 200 -
+2025-09-29 15:25:18,825 - INFO - 127.0.0.1 - - [29/Sep/2025 15:25:18] "GET /static/styles.css HTTP/1.1" 200 -
+2025-09-29 15:25:18,925 - INFO - 127.0.0.1 - - [29/Sep/2025 15:25:18] "GET /static/script.js HTTP/1.1" 200 -
+2025-09-29 15:25:19,477 - INFO - 127.0.0.1 - - [29/Sep/2025 15:25:19] "GET /api/olts HTTP/1.1" 200 -
+2025-09-29 15:25:19,482 - INFO - 127.0.0.1 - - [29/Sep/2025 15:25:19] "GET /api/stats HTTP/1.1" 200 -
+2025-09-29 15:25:19,485 - INFO - 127.0.0.1 - - [29/Sep/2025 15:25:19] "GET /socket.io/?EIO=4&transport=polling&t=PcMxy6t HTTP/1.1" 200 -
+2025-09-29 15:25:19,720 - INFO - 127.0.0.1 - - [29/Sep/2025 15:25:19] "POST /socket.io/?EIO=4&transport=polling&t=PcMxyCH&sid=hgTtYWnLJcwoRHYkAAAA HTTP/1.1" 200 -
+2025-09-29 15:25:19,822 - INFO - 127.0.0.1 - - [29/Sep/2025 15:25:19] "GET /socket.io/?EIO=4&transport=polling&t=PcMxyCO&sid=hgTtYWnLJcwoRHYkAAAA HTTP/1.1" 200 -
+2025-09-29 15:25:19,825 - INFO - 127.0.0.1 - - [29/Sep/2025 15:25:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-29 15:25:20,023 - INFO - 127.0.0.1 - - [29/Sep/2025 15:25:20] "GET /socket.io/?EIO=4&transport=polling&t=PcMxyHU&sid=hgTtYWnLJcwoRHYkAAAA HTTP/1.1" 200 -
+2025-09-29 15:30:00,443 - INFO - 127.0.0.1 - - [29/Sep/2025 15:30:00] "POST /api/scan HTTP/1.1" 200 -
+2025-09-29 15:30:00,695 - INFO - 127.0.0.1 - - [29/Sep/2025 15:30:00] "GET /api/olts HTTP/1.1" 200 -
+2025-09-29 15:35:32,664 - INFO - 127.0.0.1 - - [29/Sep/2025 15:35:32] "GET /socket.io/?EIO=4&transport=websocket&sid=hgTtYWnLJcwoRHYkAAAA HTTP/1.1" 200 -

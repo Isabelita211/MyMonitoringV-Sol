@@ -22,7 +22,7 @@ else:
 NETWORK_CONFIG = {
     'scan_ranges': [
         '10.0.0.',
-        '172.16.0.', 
+        '172.16.0.',
         '192.168.0.',
         '192.168.1.',
         '192.168.100.'
@@ -32,6 +32,19 @@ NETWORK_CONFIG = {
         {'username': 'admin', 'password': 'Admin123!'},
         {'username': 'admin', 'password': 'vsol123'},
     ]
+}
+
+# Configuración SNMP
+SNMP_CONFIG = {
+    'communities': [
+        'public',      # Comunidad por defecto
+        'private',     # Comunidad privada
+        'vsol123',     # Comunidad específica V-Sol
+        'admin',       # Comunidad admin
+    ],
+    'port': 161,      # Puerto SNMP estándar
+    'timeout': 5,     # Timeout en segundos
+    'retries': 2,     # Número de reintentos
 }
 
 # Configuración de la aplicación
